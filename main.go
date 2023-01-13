@@ -75,7 +75,7 @@ func (m model) Install() {
 	}
 
 	runInstall := func(deps []string, isDev bool) {
-		fmt.Print("\nnpm ")
+		fmt.Print("\n\n> npm ")
 		args := []string{"i"}
 		if isDev {
 			args = append(args, "-D")
