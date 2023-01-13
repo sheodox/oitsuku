@@ -2,6 +2,8 @@
 
 This is a small terminal utility for updating outdated node modules to `@latest` with npm.
 
+https://user-images.githubusercontent.com/3468630/212238194-4320523e-c02b-4629-b670-91f686c95231.mp4
+
 ## Setup
 
 This requires [`go`](https://go.dev/)
