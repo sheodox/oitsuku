@@ -25,7 +25,6 @@ type model struct {
 	outdated      []outdatedDep
 	toUpdate      mapset.Set[string]
 	shouldInstall bool
-	done          chan bool
 }
 
 func (m model) Init() tea.Cmd { return nil }
@@ -237,7 +236,7 @@ func main() {
 	t.SetStyles(s)
 	t.SetHeight(30)
 
-	m := model{t, outdated, mapset.NewSet[string](), false, make(chan bool)}
+	m := model{t, outdated, mapset.NewSet[string](), false}
 
 	if _, err := tea.NewProgram(&m).Run(); err != nil {
 		fmt.Println("Error running program:", err)
