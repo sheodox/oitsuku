@@ -36,7 +36,7 @@ func (m *model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch msg.String() {
 		case "q", "ctrl+c", "esc":
 			return m, tea.Quit
-		case " ":
+		case " ": // toggle one
 			thisDep := m.table.SelectedRow()[1]
 			if m.toUpdate.Contains(thisDep) {
 				m.toUpdate.Remove(thisDep)
@@ -44,8 +44,23 @@ func (m *model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.toUpdate.Add(thisDep)
 			}
 
-			m.table.SetRows(renderRows(m.outdated, m.toUpdate))
+			m.rerender()
 			return m, nil
+		case "a": // toggle all
+			hadUnchecked := false
+			// first try setting them all to be updated
+			for _, dep := range m.outdated {
+				// check if any of the items were missing
+				if m.toUpdate.Add(dep.Name) {
+					hadUnchecked = true
+				}
+			}
+
+			// if there weren't any unchecked, that means they were all checked, so we need to uncheck all instead
+			if !hadUnchecked {
+				m.toUpdate.Clear()
+			}
+			m.rerender()
 		case "enter":
 			m.shouldInstall = true
 			return m, tea.Quit
@@ -53,6 +68,10 @@ func (m *model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	}
 	m.table, cmd = m.table.Update(msg)
 	return m, cmd
+}
+
+func (m *model) rerender() {
+	m.table.SetRows(renderRows(m.outdated, m.toUpdate))
 }
 
 func (m model) Install() {

@@ -16,4 +16,4 @@ This requires [`go`](https://go.dev/)
 
 Just go to a repository that uses npm and run `oitsuku`.
 
-Use arrow keys or j/k to go up and down, q or escape exits. Press space to select a package to update, and hit enter to install the selected packages.
+Use arrow keys or `j`/`k` to go up and down, `q` or `escape` exits. Press space to select a package to update, and hit enter to install the selected packages. Pressing `a` selects or deselects all.
